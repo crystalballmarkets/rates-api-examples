@@ -20,10 +20,10 @@
   "homepage": "https://crystalballmarkets.com/markets/rates-api",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cbmbusdev/rates-api-examples.git",
+    "url": "git+https://github.com/crystalballmarkets/rates-api-examples.git",
     "directory": "javascript"
   },
-  "bugs": { "url": "https://github.com/cbmbusdev/rates-api-examples/issues" },
+  "bugs": { "url": "https://github.com/crystalballmarkets/rates-api-examples/issues" },
   "author": "Crystal Ball Markets <support@crystalballmarkets.com> (https://crystalballmarkets.com)",
   "license": "MIT",
   "scripts": {
