@@ -1,0 +1,32 @@
+{
+  "name": "crystal-ball-markets",
+  "version": "1.0.0",
+  "description": "Free exchange rate and gold price API client: 60 currencies, gold price in 69 countries, live market quotes. No sign-up.",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "files": ["index.js", "index.d.ts", "README.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "keywords": [
+    "exchange-rates", "currency", "currency-converter", "forex", "gold-price",
+    "gold", "rates-api", "free-api", "json", "market-data"
+  ],
+  "homepage": "https://crystalballmarkets.com/markets/rates-api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbmbusdev/rates-api-examples.git",
+    "directory": "javascript"
+  },
+  "bugs": { "url": "https://github.com/cbmbusdev/rates-api-examples/issues" },
+  "author": "Crystal Ball Markets <support@crystalballmarkets.com> (https://crystalballmarkets.com)",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test.js"
+  }
+}
