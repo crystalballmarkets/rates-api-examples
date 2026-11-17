@@ -1,0 +1,22 @@
+name: Remove npm 0.0.0-stage version
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unpublish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: Unpublish only crystal-ball-markets@0.0.0-stage
+        run: npm unpublish crystal-ball-markets@0.0.0-stage
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Show remaining versions
+        run: npm view crystal-ball-markets versions dist-tags
