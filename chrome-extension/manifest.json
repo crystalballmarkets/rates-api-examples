@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Gold Price & Currency Converter by Crystal Ball Markets",
+  "short_name": "Gold & FX Rates",
+  "version": "1.0.0",
+  "description": "Live gold price in 69 countries, a currency converter for 173 pairs and live forex, metals, oil and crypto prices. Free, no sign-up.",
+  "homepage_url": "https://crystalballmarkets.com/markets",
+  "permissions": ["declarativeNetRequest"],
+  "host_permissions": ["https://crystalballmarkets.com/markets/widget/*"],
+  "declarative_net_request": {
+    "rule_resources": [
+      { "id": "widget_frames", "enabled": true, "path": "rules.json" }
+    ]
+  },
+  "action": {
+    "default_title": "Gold price and currency converter",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

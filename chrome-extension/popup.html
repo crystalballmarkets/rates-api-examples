@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gold price and currency converter</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header>
+  <img src="icons/icon32.png" alt="" width="20" height="20">
+  <span>Gold &amp; FX Rates</span>
+</header>
+
+<nav role="tablist">
+  <button role="tab" data-tab="gold" aria-selected="true">Gold price</button>
+  <button role="tab" data-tab="convert" aria-selected="false">Converter</button>
+  <button role="tab" data-tab="quote" aria-selected="false">Markets</button>
+  <button role="tab" data-tab="table" aria-selected="false">Table</button>
+</nav>
+
+<div class="controls">
+  <select id="gold-select" aria-label="Country"></select>
+  <select id="convert-select" aria-label="Currency pair" hidden></select>
+  <select id="quote-select" aria-label="Market" hidden></select>
+</div>
+
+<iframe id="widget" title="Live prices" loading="eager"></iframe>
+
+<footer>
+  <a href="https://crystalballmarkets.com/markets" target="_blank" rel="noopener">All live markets, exchange rates and gold prices ›</a>
+</footer>
+<p class="note">Indicative prices for information only.</p>
+<script src="data.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
