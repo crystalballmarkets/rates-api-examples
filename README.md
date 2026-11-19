@@ -17,7 +17,7 @@ There is also an [OpenAPI 3.1 description](https://crystalballmarkets.com/market
 | [`javascript/`](javascript) | `crystal-ball-markets` client for browsers and Node 18+, with TypeScript types |
 | [`python/`](python) | `crystal-ball-markets` client for Python 3.8+, standard library only |
 | [`wordpress/`](wordpress/crystal-ball-markets-rates) | WordPress plugin with `[cbm_rate]`, `[cbm_convert]`, `[cbm_rates]` and `[cbm_gold]` shortcodes |
-| [`chrome-extension/`](chrome-extension) | Chrome extension: gold price in 69 countries, a 173-pair currency converter and live markets in the toolbar |
+| [`chrome-extension/`](chrome-extension) | Chrome extension: a currency converter and gold value calculator in a toolbar pop-up, built on `rates.json` and `gold.json` |
 | [`examples/`](examples) | a self-contained web page and curl calls |
 
 ## Quick start
