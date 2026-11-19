@@ -2,35 +2,111 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Gold price and currency converter</title>
+<meta name="color-scheme" content="light dark">
+<title>Currency and gold converter</title>
 <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<header>
-  <img src="icons/icon32.png" alt="" width="20" height="20">
-  <span>Gold &amp; FX Rates</span>
+<header class="top">
+  <img src="icons/icon48.png" alt="" width="28" height="28">
+  <h1 class="sr">Currency and Gold Converter</h1>
+  <div class="tabs" role="tablist" aria-label="What to convert">
+    <button type="button" role="tab" id="tab-currency" aria-controls="panel-currency" aria-selected="true">Currency</button>
+    <button type="button" role="tab" id="tab-gold" aria-controls="panel-gold" aria-selected="false" tabindex="-1">Gold</button>
+  </div>
 </header>
 
-<nav role="tablist">
-  <button role="tab" data-tab="gold" aria-selected="true">Gold price</button>
-  <button role="tab" data-tab="convert" aria-selected="false">Converter</button>
-  <button role="tab" data-tab="quote" aria-selected="false">Markets</button>
-  <button role="tab" data-tab="table" aria-selected="false">Table</button>
-</nav>
+<main>
+  <section id="panel-currency" role="tabpanel" aria-labelledby="tab-currency">
+    <label class="field">
+      <span>Amount</span>
+      <input id="amount" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="1">
+    </label>
+    <div class="pair">
+      <label class="field">
+        <span>From</span>
+        <select id="from"></select>
+      </label>
+      <button type="button" id="swap" class="icon" aria-label="Swap the two currencies" title="Swap">
+        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M6 3 2.5 6.5 6 10M2.5 6.5h13M14 10l3.5 3.5L14 17M17.5 13.5h-13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <label class="field">
+        <span>To</span>
+        <select id="to"></select>
+      </label>
+    </div>
 
-<div class="controls">
-  <select id="gold-select" aria-label="Country"></select>
-  <select id="convert-select" aria-label="Currency pair" hidden></select>
-  <select id="quote-select" aria-label="Market" hidden></select>
-</div>
+    <div class="result" id="currency-result" aria-live="polite">
+      <span class="tools">
+        <button type="button" id="pin" aria-pressed="false">Pin</button>
+        <button type="button" id="copy-currency">Copy</button>
+      </span>
+      <p class="small" id="currency-from-line"></p>
+      <p class="big"><output id="currency-value" for="amount from to"></output></p>
+      <p class="small" id="currency-rate"></p>
+      <p class="small muted" id="currency-source"></p>
+    </div>
 
-<iframe id="widget" title="Live prices" loading="eager"></iframe>
+
+    <section class="pins" aria-labelledby="pins-title" id="pins" hidden>
+      <h2 id="pins-title">Pinned pairs</h2>
+      <ul id="pin-list"></ul>
+    </section>
+  </section>
+
+  <section id="panel-gold" role="tabpanel" aria-labelledby="tab-gold" hidden>
+    <div class="pair two">
+      <label class="field">
+        <span>Weight</span>
+        <input id="weight" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="10">
+      </label>
+      <label class="field">
+        <span>Unit</span>
+        <select id="unit"></select>
+      </label>
+    </div>
+    <div class="pair two">
+      <label class="field">
+        <span>Purity</span>
+        <select id="purity"></select>
+      </label>
+      <label class="field">
+        <span>Currency</span>
+        <select id="gold-currency"></select>
+      </label>
+    </div>
+
+    <div class="result" id="gold-result" aria-live="polite">
+      <span class="tools">
+        <button type="button" id="copy-gold">Copy</button>
+      </span>
+      <p class="small" id="gold-from-line"></p>
+      <p class="big"><output id="gold-value" for="weight unit purity gold-currency"></output></p>
+      <p class="small" id="gold-spot"></p>
+    </div>
+
+    <table class="grades" aria-describedby="grades-caption">
+      <caption id="grades-caption">Per gram, by purity</caption>
+      <tbody id="grades"></tbody>
+    </table>
+
+    <p class="note">The value of the gold itself at the international price. Shop prices add local duty, tax and making charges.</p>
+  </section>
+
+  <section id="empty" class="empty" hidden>
+    <p id="empty-text">The rates could not be loaded.</p>
+    <button type="button" id="retry">Try again</button>
+  </section>
+</main>
 
 <footer>
-  <a href="https://crystalballmarkets.com/markets" target="_blank" rel="noopener">All live markets, exchange rates and gold prices ›</a>
+  <p class="status">
+    <span id="updated" role="status"></span>
+    <button type="button" id="refresh" class="link">Refresh</button>
+  </p>
+  <p class="credit"><a href="https://crystalballmarkets.com/markets" target="_blank" rel="noopener">Rates by Crystal Ball Markets</a> · <a href="https://crystalballmarkets.com/markets/methodology" target="_blank" rel="noopener">Rate sources</a></p>
+  <p class="legal">Indicative rates for information only, not an offer to buy or sell.</p>
 </footer>
-<p class="note">Indicative prices for information only.</p>
-<script src="data.js"></script>
-<script src="popup.js"></script>
+<script type="module" src="popup.js"></script>
 </body>
 </html>
