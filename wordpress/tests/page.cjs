@@ -224,7 +224,7 @@ async function open(browser, url, options = {}) {
     const plain = await measure(live);
     const hostile = await measure(fixture('hostile', 'live', 'credit', 'hostile'));
     assert.deepEqual(hostile, plain, 'a theme’s own rules changed the card');
-    assert.deepEqual([plain.card[0], plain.input[1], plain.select[1], plain.swap], [400, 38, 38, [38, 38]]);
+    assert.deepEqual([plain.card[0], plain.table[0], plain.input[1], plain.select[1], plain.swap], [400, 400, 38, 38, [38, 38]]);
     assert.equal(plain.tabCase, 'none');
 
     const phone = await measure(live, { width: 320, height: 640 });

@@ -5,7 +5,8 @@
  *
  *   php wordpress/tests/fixture.php [live|sample] [credit|nocredit] [plain|hostile] > page.html
  *
- * `hostile` adds a stylesheet that does to buttons, fields, lists and tables what a careless theme does.
+ * `hostile` adds a stylesheet that does to buttons, fields, lists and tables what a careless theme does,
+ * and sets the width of whatever is directly in the content, as Twenty Twenty-One does.
  */
 
 error_reporting( E_ALL );
@@ -63,6 +64,7 @@ $theme = $hostile ? '<style>
 	label { display: inline; font-size: 24px; text-transform: uppercase; } output { font-size: 12px; color: red; } caption { font-size: 30px; padding: 20px; }
 	a { color: red; text-decoration: underline wavy; font-weight: 900; } small { font-size: 30px; } b { font-weight: 100; } svg { width: 80px; height: 80px; }
 	* { box-sizing: content-box; }
+	section > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.wp-block-separator) { max-width: 610px; margin-left: auto; margin-right: auto; }
 </style>' : '';
 
 echo '<!DOCTYPE html><html lang="en-US"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Converter</title>'
