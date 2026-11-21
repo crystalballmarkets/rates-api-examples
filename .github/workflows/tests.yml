@@ -1,0 +1,51 @@
+# Runs every check in the repository on each pull request and on main.
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: JavaScript package
+        working-directory: javascript
+        run: npm test
+      - name: Python package
+        working-directory: python
+        run: python -W error -m unittest test_client -v
+      - name: WordPress plugin, the browser's sums
+        run: node wordpress/tests/core.test.cjs
+
+  wordpress:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ["7.4", "8.3"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - name: Every file parses on PHP ${{ matrix.php }}
+        run: find wordpress -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: The plugin's own code
+        run: php wordpress/tests/run.php

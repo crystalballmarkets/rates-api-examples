@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Currency converter and gold price</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 32rem; margin: 2rem auto; padding: 0 1rem; }
+  input, select { font: inherit; padding: .3rem; }
+  output { display: block; font-size: 1.4rem; margin: .8rem 0; }
+  small { color: #555; }
+</style>
+</head>
+<body>
+<h1>Currency converter</h1>
+<p>
+  <input id="amount" type="number" value="100" min="0" step="any">
+  <select id="from"></select> to <select id="to"></select>
+</p>
+<output id="result">Loading…</output>
+
+<h2>Gold price by country</h2>
+<p><select id="country"></select></p>
+<output id="gold"></output>
+
+<!-- Required by the API terms: visible, unchanged, no rel="nofollow". -->
+<p><small><a href="https://crystalballmarkets.com/markets">Rates by Crystal Ball Markets</a></small></p>
+
+<script>
+const API = 'https://crystalballmarkets.com/markets/api/v1/';
+const $ = (id) => document.getElementById(id);
+
+Promise.all([
+  fetch(API + 'rates.json').then((r) => r.json()),
+  fetch(API + 'gold.json').then((r) => r.json()),
+]).then(([rates, gold]) => {
+  const r = { [rates.data.base]: 1 };
+  for (const [code, v] of Object.entries(rates.data.rates)) r[code] = v.rate;
+  const codes = Object.keys(r).sort();
+  for (const sel of [$('from'), $('to')]) sel.innerHTML = codes.map((c) => `<option>${c}</option>`).join('');
+  $('from').value = 'USD';
+  $('to').value = 'EUR';
+
+  const convert = () => {
+    const out = (+$('amount').value / r[$('from').value]) * r[$('to').value];
+    $('result').textContent = `${$('amount').value} ${$('from').value} = ${out.toLocaleString(undefined, { maximumFractionDigits: 4 })} ${$('to').value}`;
+  };
+  ['amount', 'from', 'to'].forEach((id) => $(id).addEventListener('input', convert));
+  convert();
+
+  const countries = gold.data.countries;
+  const names = new Intl.DisplayNames(['en'], { type: 'region' });
+  $('country').innerHTML = countries
+    .map((c, i) => `<option value="${i}">${names.of(c.country)}</option>`)
+    .join('');
+  const showGold = () => {
+    const c = countries[$('country').value];
+    $('gold').textContent = `${c.price.toLocaleString()} ${c.currency} per ${c.unit.replace(/([A-Z])/g, ' $1').toLowerCase()} (${c.purity})`;
+  };
+  $('country').addEventListener('input', showGold);
+  showGold();
+}).catch(() => { $('result').textContent = 'Could not load the rates.'; });
+</script>
+</body>
+</html>

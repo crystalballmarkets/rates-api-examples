@@ -1,7 +1,7 @@
 {
   "name": "crystal-ball-markets",
-  "version": "1.0.0",
-  "description": "Free exchange rate and gold price API client: 60 currencies, gold price in 69 countries, live market quotes. No sign-up.",
+  "version": "2.0.0",
+  "description": "A currency converter and gold value calculator for any web page, with the sums and a client for the free Crystal Ball Markets exchange rate and gold price API.",
   "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
@@ -9,13 +9,44 @@
     ".": {
       "types": "./index.d.ts",
       "default": "./index.js"
-    }
+    },
+    "./converter": {
+      "types": "./converter.d.ts",
+      "default": "./converter.js"
+    },
+    "./sample": {
+      "types": "./sample.d.ts",
+      "default": "./sample.js"
+    },
+    "./package.json": "./package.json"
   },
-  "files": ["index.js", "index.d.ts", "README.md", "LICENSE"],
-  "engines": { "node": ">=18" },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "core.js",
+    "converter.js",
+    "converter.d.ts",
+    "converter-style.js",
+    "sample.js",
+    "sample.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "keywords": [
-    "exchange-rates", "currency", "currency-converter", "forex", "gold-price",
-    "gold", "rates-api", "free-api", "json", "market-data"
+    "currency-converter",
+    "exchange-rates",
+    "currency",
+    "gold-price",
+    "gold-calculator",
+    "forex",
+    "rates-api",
+    "widget",
+    "free-api",
+    "market-data"
   ],
   "homepage": "https://crystalballmarkets.com/markets/rates-api",
   "repository": {
@@ -23,7 +54,9 @@
     "url": "git+https://github.com/crystalballmarkets/rates-api-examples.git",
     "directory": "javascript"
   },
-  "bugs": { "url": "https://github.com/crystalballmarkets/rates-api-examples/issues" },
+  "bugs": {
+    "url": "https://github.com/crystalballmarkets/rates-api-examples/issues"
+  },
   "author": "Crystal Ball Markets <support@crystalballmarkets.com> (https://crystalballmarkets.com)",
   "license": "MIT",
   "scripts": {

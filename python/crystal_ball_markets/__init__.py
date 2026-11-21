@@ -1,4 +1,4 @@
-"""Client for the free Crystal Ball Markets exchange rate and gold price API.
+"""The free Crystal Ball Markets exchange rate and gold price API: a client, and the sums to use its figures.
 
 Terms: https://crystalballmarkets.com/markets/rates-api
 """
@@ -12,7 +12,24 @@ import urllib.parse
 import urllib.request
 from typing import Any, Callable, Dict, Optional
 
-__version__ = "1.0.0"
+from .sums import (
+    GRAMS_PER_TROY_OUNCE,
+    PURITIES,
+    UNITS,
+    convert,
+    currency_digits,
+    format_money,
+    gold_value,
+    money_digits,
+    parse_amount,
+    per_usd,
+    purity_fineness,
+    rate_digits,
+    source_text,
+    unit_grams,
+)
+
+__version__ = "2.0.0"
 __all__ = [
     "Client",
     "RatesApiError",
@@ -20,6 +37,20 @@ __all__ = [
     "ATTRIBUTION_TEXT",
     "ATTRIBUTION_URL",
     "ATTRIBUTION_HTML",
+    "GRAMS_PER_TROY_OUNCE",
+    "UNITS",
+    "PURITIES",
+    "convert",
+    "gold_value",
+    "per_usd",
+    "parse_amount",
+    "money_digits",
+    "rate_digits",
+    "currency_digits",
+    "format_money",
+    "unit_grams",
+    "purity_fineness",
+    "source_text",
 ]
 
 BASE_URL = "https://crystalballmarkets.com/markets/api/v1/"
@@ -119,22 +150,41 @@ class Client:
     # Helpers
     def rate(self, code: str) -> Optional[float]:
         """Units of ``code`` per 1 US dollar, or None if not covered."""
-        entry = self.rates()["data"]["rates"].get(code.upper())
-        return entry["rate"] if entry else None
+        return per_usd(code, self.rates()["data"]["rates"])
 
     def convert(self, amount: float, from_code: str, to_code: str) -> float:
         """Convert an amount between two currencies through the US dollar."""
-        data = self.rates()["data"]
+        rates = self.rates()["data"]["rates"]
+        for code in (from_code, to_code):
+            if per_usd(code, rates) is None:
+                raise KeyError(f"No rate for {str(code).upper()}")
+        value = convert(float(amount), from_code, to_code, rates)
+        if value is None:
+            raise ValueError("The amount must be a number.")
+        return value
 
-        def r(code: str) -> float:
-            code = code.upper()
-            if code == data["base"]:
-                return 1.0
-            if code not in data["rates"]:
-                raise KeyError(f"No rate for {code}")
-            return float(data["rates"][code]["rate"])
+    def gold_value(
+        self, weight: float = 1, unit: str = "gram", purity: Any = "24k", currency: str = "USD"
+    ) -> float:
+        """What a weight of gold is worth in a currency.
 
-        return float(amount) / r(from_code) * r(to_code)
+        ``client.gold_value(10, "tola", "22k", "INR")`` is ten tolas of 22 karat gold in
+        rupees: the value of the gold itself at the international price. Shop prices add
+        local duty, tax and making charges.
+        """
+        grams = unit_grams(unit)
+        fine = purity_fineness(purity)
+        if grams is None:
+            raise KeyError(f"No unit called {unit}: use one of {', '.join(UNITS)}")
+        if fine is None:
+            raise KeyError(f"No purity called {purity}: use one of 24k, 22k, 21k, 18k, 14k")
+        per = per_usd(currency, self.rates()["data"]["rates"])
+        if per is None:
+            raise KeyError(f"No rate for {str(currency).upper()}")
+        value = gold_value(float(weight), grams, fine, float(self.gold()["data"]["usdPerOunce"]), per)
+        if value is None:
+            raise ValueError("The weight must be a number, zero or more.")
+        return value
 
     def gold_price(self, country: str) -> Optional[Dict[str, Any]]:
         """Gold entry for an ISO 3166 alpha-2 country code, e.g. 'IN'."""

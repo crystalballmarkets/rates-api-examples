@@ -4,21 +4,26 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crystal-ball-markets"
-version = "1.0.0"
-description = "Free exchange rate and gold price API client: 60 currencies, gold price in 69 countries, live market quotes. No sign-up."
+version = "2.0.0"
+description = "Exchange rates, currency conversion and the value of gold by weight: a client for the free Crystal Ball Markets Rates API, the sums, and a command line."
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "MIT" }
 authors = [{ name = "Crystal Ball Markets", email = "support@crystalballmarkets.com" }]
-keywords = ["exchange rates", "currency", "forex", "gold price", "gold", "rates api", "free api", "market data"]
+keywords = ["exchange rates", "currency converter", "currency", "forex", "gold price", "gold calculator", "rates api", "free api", "market data"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
+  "Environment :: Console",
   "Topic :: Office/Business :: Financial",
   "Intended Audience :: Developers",
+  "Typing :: Typed",
 ]
 dependencies = []
+
+[project.scripts]
+cbm-rates = "crystal_ball_markets.__main__:main"
 
 [project.urls]
 Homepage = "https://crystalballmarkets.com/markets/rates-api"
@@ -28,3 +33,6 @@ Issues = "https://github.com/crystalballmarkets/rates-api-examples/issues"
 
 [tool.setuptools]
 packages = ["crystal_ball_markets"]
+
+[tool.setuptools.package-data]
+crystal_ball_markets = ["py.typed"]

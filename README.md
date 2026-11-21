@@ -14,15 +14,25 @@ There is also an [OpenAPI 3.1 description](https://crystalballmarkets.com/market
 
 | Folder | Contents |
 | --- | --- |
-| [`javascript/`](javascript) | `crystal-ball-markets` client for browsers and Node 18+, with TypeScript types |
-| [`python/`](python) | `crystal-ball-markets` client for Python 3.8+, standard library only |
+| [`javascript/`](javascript) | `crystal-ball-markets` on npm: a currency converter and gold value calculator for any web page, the sums behind it, and a client for browsers and Node 18+, with TypeScript types |
+| [`python/`](python) | `crystal-ball-markets` on PyPI: a client for Python 3.8+, the same sums and a command line, standard library only |
 | [`wordpress/`](wordpress) | WordPress plugin: a currency converter and gold value calculator as a block and as `[cbmarkets_converter]`, with `[cbmarkets_rate]`, `[cbmarkets_convert]`, `[cbmarkets_rates]` and `[cbmarkets_gold]` for figures inside a sentence |
 | [`chrome-extension/`](chrome-extension) | Chrome extension: a currency converter and gold value calculator in a toolbar pop-up, built on `rates.json` and `gold.json` |
-| [`examples/`](examples) | a self-contained web page and curl calls |
+| [`examples/`](examples) | two web pages (the converter in four lines, and the API called by hand) and curl calls |
 
 ## Quick start
 
-From a web page, the browser names your site for you:
+A converter on your page, with nothing to build:
+
+```html
+<div id="converter"></div>
+<script type="module">
+  import { mountConverter } from 'https://cdn.jsdelivr.net/npm/crystal-ball-markets@2/converter.js';
+  mountConverter('#converter');
+</script>
+```
+
+The figures themselves, from a web page, where the browser names your site for you:
 
 ```js
 const res = await fetch('https://crystalballmarkets.com/markets/api/v1/rates.json');
