@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "cbmarkets/converter",
+	"version": "2.0.0",
+	"title": "Currency and Gold Converter",
+	"category": "widgets",
+	"icon": "money-alt",
+	"description": "A currency converter and a gold value calculator in one card. Visitors type an amount or a weight and see the result at once.",
+	"keywords": [ "currency", "exchange rate", "gold" ],
+	"textdomain": "crystal-ball-markets-rates",
+	"attributes": {
+		"show": { "type": "string", "default": "both" },
+		"tab": { "type": "string", "default": "currency" },
+		"amount": { "type": "string", "default": "1" },
+		"from": { "type": "string", "default": "USD" },
+		"to": { "type": "string", "default": "EUR" },
+		"weight": { "type": "string", "default": "10" },
+		"unit": { "type": "string", "default": "gram" },
+		"purity": { "type": "string", "default": "24k" },
+		"goldCurrency": { "type": "string", "default": "USD" },
+		"theme": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "center" ]
+	},
+	"editorScript": "file:./editor.js",
+	"style": "cbmarkets-rates"
+}

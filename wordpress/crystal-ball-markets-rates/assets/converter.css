@@ -1,0 +1,623 @@
+/*
+ * The converter's look: a card of its own, in light or dark, with the system's typeface.
+ * Every rule is under a cbmarkets class and sets what it needs, so a theme's own rules for
+ * buttons, fields and tables do not change it and it changes nothing outside itself.
+ */
+.cbmarkets-converter,
+.cbmarkets-card {
+	--cbmarkets-bg: #f4f7fb;
+	--cbmarkets-panel: #ffffff;
+	--cbmarkets-well: #e9eff6;
+	--cbmarkets-rule: #d4dee9;
+	--cbmarkets-rule-strong: #b0c1d4;
+	--cbmarkets-ink: #0a1626;
+	--cbmarkets-ink-2: #3a4c62;
+	--cbmarkets-ink-3: #56687f;
+	--cbmarkets-accent: #0073ab;
+	--cbmarkets-tint: rgba(1, 150, 210, 0.1);
+	--cbmarkets-focus: #0073ab;
+	--cbmarkets-warn: #8f5d00;
+	--cbmarkets-shadow: 0 1px 2px rgba(10, 22, 38, 0.16);
+	color-scheme: light;
+}
+.cbmarkets-converter.cbmarkets-theme-dark,
+.cbmarkets-card.cbmarkets-theme-dark {
+	--cbmarkets-bg: #03060c;
+	--cbmarkets-panel: #0a1422;
+	--cbmarkets-well: #0e1a2c;
+	--cbmarkets-rule: #1b2b3e;
+	--cbmarkets-rule-strong: #2a4260;
+	--cbmarkets-ink: #f4f8fc;
+	--cbmarkets-ink-2: #a9bcd1;
+	--cbmarkets-ink-3: #8499b2;
+	--cbmarkets-accent: #46d3ff;
+	--cbmarkets-tint: rgba(1, 191, 254, 0.14);
+	--cbmarkets-focus: #8ae4ff;
+	--cbmarkets-warn: #ffd86a;
+	--cbmarkets-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+	color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+	.cbmarkets-converter.cbmarkets-theme-auto,
+	.cbmarkets-card.cbmarkets-theme-auto {
+		--cbmarkets-bg: #03060c;
+		--cbmarkets-panel: #0a1422;
+		--cbmarkets-well: #0e1a2c;
+		--cbmarkets-rule: #1b2b3e;
+		--cbmarkets-rule-strong: #2a4260;
+		--cbmarkets-ink: #f4f8fc;
+		--cbmarkets-ink-2: #a9bcd1;
+		--cbmarkets-ink-3: #8499b2;
+		--cbmarkets-accent: #46d3ff;
+		--cbmarkets-tint: rgba(1, 191, 254, 0.14);
+		--cbmarkets-focus: #8ae4ff;
+		--cbmarkets-warn: #ffd86a;
+		--cbmarkets-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+		color-scheme: dark;
+	}
+}
+
+.cbmarkets-converter,
+.cbmarkets-card {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 400px;
+	margin: 1.5em 0;
+	border: 1px solid var(--cbmarkets-rule);
+	border-radius: 14px;
+	background: var(--cbmarkets-bg);
+	color: var(--cbmarkets-ink);
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.45;
+	letter-spacing: normal;
+	text-align: left;
+	text-transform: none;
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+}
+.cbmarkets-converter[dir="rtl"],
+[dir="rtl"] .cbmarkets-converter,
+[dir="rtl"] .cbmarkets-card {
+	text-align: right;
+}
+.cbmarkets-converter *,
+.cbmarkets-converter *::before,
+.cbmarkets-converter *::after,
+.cbmarkets-card *,
+.cbmarkets-card *::before,
+.cbmarkets-card *::after {
+	box-sizing: border-box;
+}
+.cbmarkets-converter [hidden] {
+	display: none !important;
+}
+.wp-block-cbmarkets-converter.cbmarkets-align-center .cbmarkets-converter {
+	margin-left: auto;
+	margin-right: auto;
+}
+.wp-block-cbmarkets-converter.cbmarkets-align-right .cbmarkets-converter {
+	margin-left: auto;
+}
+
+/*
+ * Buttons and fields: some themes force their own colours on every button and field with !important.
+ * For those few properties, and only on this card's own controls, the card answers in kind.
+ */
+
+/* The two tabs */
+.cbmarkets-converter .cbmarkets-top {
+	padding: 12px 16px 0;
+}
+.cbmarkets-converter .cbmarkets-tabs {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 4px;
+	padding: 4px;
+	background: var(--cbmarkets-well);
+	border: 1px solid var(--cbmarkets-rule);
+	border-radius: 10px;
+}
+.cbmarkets-converter .cbmarkets-tab {
+	appearance: none;
+	-webkit-appearance: none;
+	display: block;
+	width: auto;
+	min-width: 0;
+	min-height: 0;
+	height: auto;
+	margin: 0;
+	padding: 5px 8px;
+	border: 0 !important;
+	border-radius: 7px !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	color: var(--cbmarkets-ink-2) !important;
+	font: inherit;
+	font-weight: 600;
+	line-height: 1.45;
+	letter-spacing: normal !important;
+	text-transform: none !important;
+	text-decoration: none !important;
+	text-align: center;
+	cursor: pointer;
+}
+.cbmarkets-converter .cbmarkets-tab:hover,
+.cbmarkets-converter .cbmarkets-tab:focus {
+	background: var(--cbmarkets-tint) !important;
+	color: var(--cbmarkets-ink) !important;
+}
+.cbmarkets-converter .cbmarkets-tab[aria-selected="true"] {
+	background: var(--cbmarkets-panel) !important;
+	color: var(--cbmarkets-ink) !important;
+	box-shadow: var(--cbmarkets-shadow) !important;
+}
+
+/* Fields */
+.cbmarkets-converter .cbmarkets-main {
+	padding: 12px 16px 2px;
+}
+.cbmarkets-converter .cbmarkets-panel {
+	margin: 0;
+	padding: 0;
+}
+.cbmarkets-converter .cbmarkets-field {
+	display: grid;
+	gap: 4px;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	font: inherit;
+}
+.cbmarkets-converter .cbmarkets-label {
+	display: block;
+	margin: 0;
+	padding: 0;
+	color: var(--cbmarkets-ink-2);
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.45;
+	text-align: inherit;
+	caption-side: top;
+}
+.cbmarkets-converter .cbmarkets-input,
+.cbmarkets-converter .cbmarkets-select {
+	display: block;
+	width: 100%;
+	min-width: 0;
+	max-width: none;
+	height: 38px;
+	min-height: 0;
+	margin: 0;
+	padding: 0 10px;
+	border: 1px solid var(--cbmarkets-rule-strong) !important;
+	border-radius: 8px !important;
+	background-color: var(--cbmarkets-panel) !important;
+	box-shadow: none !important;
+	color: var(--cbmarkets-ink) !important;
+	font: inherit;
+	line-height: 36px;
+	letter-spacing: normal !important;
+	text-transform: none !important;
+}
+.cbmarkets-converter .cbmarkets-input {
+	font-size: 16px;
+	font-variant-numeric: tabular-nums;
+}
+.cbmarkets-converter .cbmarkets-input[aria-invalid="true"] {
+	border-color: var(--cbmarkets-warn) !important;
+}
+.cbmarkets-converter .cbmarkets-select {
+	padding-right: 4px;
+	text-overflow: ellipsis;
+}
+.cbmarkets-converter .cbmarkets-pair {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+	gap: 8px;
+	align-items: end;
+	margin: 8px 0 0;
+}
+.cbmarkets-converter .cbmarkets-pair.cbmarkets-two {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.cbmarkets-converter .cbmarkets-panel > .cbmarkets-pair:first-child {
+	margin-top: 0;
+}
+.cbmarkets-converter .cbmarkets-icon {
+	appearance: none;
+	-webkit-appearance: none;
+	display: grid;
+	place-items: center;
+	width: 38px;
+	min-width: 0;
+	height: 38px;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	border: 1px solid var(--cbmarkets-rule-strong) !important;
+	border-radius: 8px !important;
+	background: var(--cbmarkets-panel) !important;
+	box-shadow: none !important;
+	color: var(--cbmarkets-ink-2) !important;
+	cursor: pointer;
+}
+.cbmarkets-converter .cbmarkets-icon:hover,
+.cbmarkets-converter .cbmarkets-icon:focus {
+	background: var(--cbmarkets-tint) !important;
+	color: var(--cbmarkets-ink) !important;
+}
+.cbmarkets-converter .cbmarkets-icon svg {
+	display: block;
+	width: 18px;
+	height: 18px;
+	fill: none;
+}
+/* Without the script the lists cannot answer, so the swap button waits for it. */
+.cbmarkets-converter:not(.cbmarkets-is-ready) .cbmarkets-icon {
+	visibility: hidden;
+}
+
+/* The result */
+.cbmarkets-converter .cbmarkets-result {
+	position: relative;
+	min-height: 96px;
+	margin: 12px 0 0;
+	padding: 10px 14px;
+	border: 1px solid var(--cbmarkets-rule);
+	border-radius: 12px;
+	background: var(--cbmarkets-panel);
+}
+.cbmarkets-converter .cbmarkets-tools {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: flex;
+	gap: 6px;
+}
+[dir="rtl"] .cbmarkets-converter .cbmarkets-tools {
+	right: auto;
+	left: 8px;
+}
+.cbmarkets-converter .cbmarkets-tool {
+	appearance: none;
+	-webkit-appearance: none;
+	width: auto;
+	min-width: 0;
+	height: 24px;
+	min-height: 0;
+	margin: 0;
+	padding: 0 9px;
+	border: 1px solid var(--cbmarkets-rule-strong) !important;
+	border-radius: 6px !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	color: var(--cbmarkets-ink-2) !important;
+	font: inherit;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 22px;
+	letter-spacing: normal !important;
+	text-transform: none !important;
+	text-decoration: none !important;
+	cursor: pointer;
+}
+.cbmarkets-converter .cbmarkets-tool:hover,
+.cbmarkets-converter .cbmarkets-tool:focus {
+	background: var(--cbmarkets-tint) !important;
+	color: var(--cbmarkets-ink) !important;
+}
+.cbmarkets-converter .cbmarkets-tool:disabled {
+	opacity: 0.45;
+	cursor: default;
+}
+.cbmarkets-converter .cbmarkets-tool[aria-pressed="true"] {
+	background: var(--cbmarkets-tint) !important;
+	border-color: var(--cbmarkets-accent) !important;
+	color: var(--cbmarkets-ink) !important;
+}
+.cbmarkets-converter .cbmarkets-small,
+.cbmarkets-converter .cbmarkets-big,
+.cbmarkets-converter .cbmarkets-note,
+.cbmarkets-converter .cbmarkets-status,
+.cbmarkets-converter .cbmarkets-legal,
+.cbmarkets-converter .cbmarkets-credit,
+.cbmarkets-converter .cbmarkets-empty,
+.cbmarkets-converter .cbmarkets-admin-hint,
+.cbmarkets-card .cbmarkets-status,
+.cbmarkets-card .cbmarkets-credit {
+	margin: 0;
+	padding: 0;
+	max-width: none;
+	font-family: inherit;
+	font-style: normal;
+	letter-spacing: normal;
+	text-transform: none;
+}
+.cbmarkets-converter .cbmarkets-small {
+	color: var(--cbmarkets-ink-2);
+	font-size: 12.5px;
+	font-weight: 400;
+	line-height: 1.45;
+}
+.cbmarkets-converter .cbmarkets-lead {
+	min-height: 24px;
+	padding-right: 112px;
+}
+[dir="rtl"] .cbmarkets-converter .cbmarkets-lead {
+	padding-right: 0;
+	padding-left: 112px;
+}
+.cbmarkets-converter .cbmarkets-muted {
+	margin-top: 2px;
+	color: var(--cbmarkets-ink-3);
+}
+.cbmarkets-converter .cbmarkets-big {
+	margin: 2px 0 4px;
+	color: var(--cbmarkets-ink);
+	font-size: 25px;
+	font-weight: 700;
+	line-height: 1.25;
+	font-variant-numeric: tabular-nums;
+	overflow-wrap: anywhere;
+}
+.cbmarkets-converter .cbmarkets-big output {
+	display: block;
+	margin: 0;
+	padding: 0;
+	color: inherit;
+	font: inherit;
+}
+
+/* Pinned pairs */
+.cbmarkets-converter .cbmarkets-pins {
+	margin: 10px 0 0;
+}
+.cbmarkets-converter .cbmarkets-pins .cbmarkets-label {
+	margin-bottom: 4px;
+}
+.cbmarkets-converter .cbmarkets-pin-list {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 5px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.cbmarkets-converter .cbmarkets-pin-list li {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 1px solid var(--cbmarkets-rule);
+	border-radius: 8px;
+	background: var(--cbmarkets-panel);
+	list-style: none;
+	overflow: hidden;
+}
+.cbmarkets-converter .cbmarkets-pin-list li::before,
+.cbmarkets-converter .cbmarkets-pin-list li::marker {
+	content: none;
+}
+.cbmarkets-converter .cbmarkets-pin-load,
+.cbmarkets-converter .cbmarkets-pin-remove {
+	appearance: none;
+	-webkit-appearance: none;
+	min-width: 0;
+	min-height: 0;
+	height: auto;
+	margin: 0;
+	border: 0 !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	font: inherit;
+	letter-spacing: normal !important;
+	text-transform: none !important;
+	text-decoration: none !important;
+	cursor: pointer;
+}
+.cbmarkets-converter .cbmarkets-pin-load {
+	display: flex;
+	justify-content: space-between;
+	gap: 6px;
+	width: 100%;
+	padding: 4px 4px 4px 9px;
+	color: var(--cbmarkets-ink) !important;
+	font-size: 12.5px;
+	font-weight: 400;
+	line-height: 1.4;
+	font-variant-numeric: tabular-nums;
+	text-align: left;
+}
+.cbmarkets-converter .cbmarkets-pin-load b {
+	font-weight: 650;
+}
+.cbmarkets-converter .cbmarkets-pin-load span {
+	color: var(--cbmarkets-ink-2);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.cbmarkets-converter .cbmarkets-pin-remove {
+	width: 26px;
+	padding: 0;
+	color: var(--cbmarkets-ink-3) !important;
+	font-size: 15px;
+	line-height: 1;
+}
+.cbmarkets-converter .cbmarkets-pin-load:hover,
+.cbmarkets-converter .cbmarkets-pin-load:focus,
+.cbmarkets-converter .cbmarkets-pin-remove:hover,
+.cbmarkets-converter .cbmarkets-pin-remove:focus {
+	background: var(--cbmarkets-tint) !important;
+	color: var(--cbmarkets-ink) !important;
+}
+
+/* Gold by purity, and the table of rates */
+.cbmarkets-converter .cbmarkets-grades,
+.cbmarkets-card .cbmarkets-table {
+	width: 100%;
+	margin: 10px 0 0;
+	padding: 0;
+	border: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-variant-numeric: tabular-nums;
+	table-layout: auto;
+}
+.cbmarkets-converter .cbmarkets-grades caption {
+	margin: 0 0 4px;
+	padding: 0;
+}
+.cbmarkets-converter .cbmarkets-grades th,
+.cbmarkets-converter .cbmarkets-grades td,
+.cbmarkets-card .cbmarkets-table th,
+.cbmarkets-card .cbmarkets-table td {
+	padding: 4px 0;
+	border: 0;
+	border-top: 1px solid var(--cbmarkets-rule);
+	background: transparent;
+	color: var(--cbmarkets-ink);
+	font-size: 13px;
+	line-height: 1.45;
+	letter-spacing: normal;
+	text-transform: none;
+	vertical-align: baseline;
+}
+.cbmarkets-converter .cbmarkets-grades th,
+.cbmarkets-card .cbmarkets-table th {
+	color: var(--cbmarkets-ink-2);
+	font-weight: 600;
+	text-align: left;
+}
+.cbmarkets-converter .cbmarkets-grades td,
+.cbmarkets-card .cbmarkets-table td,
+.cbmarkets-card .cbmarkets-table thead th:last-child {
+	font-weight: 400;
+	text-align: right;
+}
+[dir="rtl"] .cbmarkets-converter .cbmarkets-grades th,
+[dir="rtl"] .cbmarkets-card .cbmarkets-table th {
+	text-align: right;
+}
+[dir="rtl"] .cbmarkets-converter .cbmarkets-grades td,
+[dir="rtl"] .cbmarkets-card .cbmarkets-table td,
+[dir="rtl"] .cbmarkets-card .cbmarkets-table thead th:last-child {
+	text-align: left;
+}
+.cbmarkets-converter .cbmarkets-note {
+	margin-top: 8px;
+	color: var(--cbmarkets-ink-3);
+	font-size: 12px;
+	line-height: 1.4;
+}
+
+/* The foot: how old the rates are, the link when it is turned on, the notice */
+.cbmarkets-converter .cbmarkets-foot {
+	margin: 10px 0 0;
+	padding: 8px 16px 10px;
+	border-top: 1px solid var(--cbmarkets-rule);
+}
+.cbmarkets-converter .cbmarkets-status,
+.cbmarkets-converter .cbmarkets-credit,
+.cbmarkets-converter .cbmarkets-legal,
+.cbmarkets-card .cbmarkets-status,
+.cbmarkets-card .cbmarkets-credit {
+	color: var(--cbmarkets-ink-3);
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 1.4;
+}
+.cbmarkets-converter .cbmarkets-status,
+.cbmarkets-card .cbmarkets-status {
+	color: var(--cbmarkets-ink-2);
+}
+.cbmarkets-converter .cbmarkets-status.cbmarkets-late,
+.cbmarkets-card .cbmarkets-status.cbmarkets-late {
+	color: var(--cbmarkets-warn);
+}
+.cbmarkets-converter .cbmarkets-credit,
+.cbmarkets-converter .cbmarkets-legal,
+.cbmarkets-card .cbmarkets-credit {
+	margin-top: 3px;
+}
+.cbmarkets-converter .cbmarkets-legal {
+	font-size: 11.5px;
+}
+.cbmarkets-converter .cbmarkets-credit a,
+.cbmarkets-card .cbmarkets-credit a,
+.cbmarkets-converter .cbmarkets-admin-hint a {
+	color: var(--cbmarkets-accent);
+	font-weight: 400;
+	text-decoration: none;
+	box-shadow: none;
+}
+.cbmarkets-converter .cbmarkets-credit a:hover,
+.cbmarkets-converter .cbmarkets-credit a:focus,
+.cbmarkets-card .cbmarkets-credit a:hover,
+.cbmarkets-card .cbmarkets-credit a:focus,
+.cbmarkets-converter .cbmarkets-admin-hint a:hover {
+	text-decoration: underline;
+}
+
+/* Nothing to show */
+.cbmarkets-converter.cbmarkets-is-empty {
+	padding: 20px 16px;
+}
+.cbmarkets-converter .cbmarkets-empty {
+	color: var(--cbmarkets-ink-2);
+	font-size: 14px;
+}
+.cbmarkets-converter .cbmarkets-admin-hint {
+	margin-top: 8px;
+	color: var(--cbmarkets-warn);
+	font-size: 12.5px;
+}
+
+/* The table of rates, as a card of its own */
+.cbmarkets-card {
+	padding: 6px 16px 10px;
+}
+.cbmarkets-card .cbmarkets-table {
+	margin-top: 0;
+}
+.cbmarkets-card .cbmarkets-table thead th {
+	border-top: 0;
+	font-size: 12px;
+}
+.cbmarkets-card .cbmarkets-status {
+	margin-top: 8px;
+	padding-top: 8px;
+	border-top: 1px solid var(--cbmarkets-rule);
+}
+
+/* Figures inside a sentence take the sentence's own type */
+.cbmarkets-figure {
+	font-variant-numeric: tabular-nums;
+}
+.cbmarkets-sample,
+small.cbmarkets-credit {
+	font-size: 0.85em;
+}
+p.cbmarkets-admin-hint {
+	font-size: 0.85em;
+}
+
+.cbmarkets-converter :focus-visible {
+	outline: 2px solid var(--cbmarkets-focus);
+	outline-offset: 2px;
+}
+@media (prefers-reduced-motion: no-preference) {
+	.cbmarkets-converter .cbmarkets-tab,
+	.cbmarkets-converter .cbmarkets-icon,
+	.cbmarkets-converter .cbmarkets-tool {
+		transition: background-color 120ms ease, color 120ms ease;
+	}
+}
