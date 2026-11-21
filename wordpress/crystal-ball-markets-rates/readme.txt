@@ -1,7 +1,7 @@
 === Crystal Ball Markets Rates ===
 Contributors: crystalballmarkets
 Tags: currency converter, exchange rates, gold price, currency, calculator
-Requires at least: 6.0
+Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 2.0.0
@@ -26,6 +26,8 @@ Add it with the block "Currency and Gold Converter", or with a shortcode:
 * `[cbmarkets_converter]` shows both, in two tabs.
 * `[cbmarkets_converter show="currency" from="GBP" to="NGN" amount="100"]` shows the currency converter alone, opening on a pair and an amount of your choice.
 * `[cbmarkets_converter show="gold" weight="10" unit="tola" purity="22k" gold_currency="INR"]` shows the gold calculator alone.
+
+The card is 400 pixels wide at most and sits at the start of the line. Add `align="center"` or `align="right"` to the shortcode to move it, or use the block's alignment button.
 
 = Figures inside your own text =
 

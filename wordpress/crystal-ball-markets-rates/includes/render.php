@@ -488,6 +488,24 @@ function cbmarkets_rates_currency_options( $lists, $selected ) {
 }
 
 /**
+ * A card inside a plain box of the plugin's own. Many themes set the width and the margins of
+ * whatever sits directly in the content. The box takes those rules and the card keeps its own.
+ *
+ * @param string $card  The card's markup.
+ * @param mixed  $align Where the card sits in the box: left, center or right.
+ * @param string $extra A further class for the box.
+ * @return string
+ */
+function cbmarkets_rates_boxed( $card, $align = '', $extra = '' ) {
+	$class = trim( $extra . ' cbmarkets-block' );
+	$align = is_string( $align ) ? strtolower( trim( $align ) ) : '';
+	if ( in_array( $align, array( 'left', 'center', 'right' ), true ) ) {
+		$class .= ' cbmarkets-align-' . $align;
+	}
+	return '<div class="' . esc_attr( $class ) . '">' . $card . '</div>';
+}
+
+/**
  * The converter: a currency converter and a gold value calculator in one card.
  *
  * @param array $atts Attributes of the shortcode or the block.
@@ -675,7 +693,8 @@ function cbmarkets_rates_converter( $atts ) {
  * @return string
  */
 function cbmarkets_rates_shortcode_converter( $atts ) {
-	return cbmarkets_rates_converter( is_array( $atts ) ? $atts : array() );
+	$atts = is_array( $atts ) ? $atts : array();
+	return cbmarkets_rates_boxed( cbmarkets_rates_converter( $atts ), isset( $atts['align'] ) ? $atts['align'] : '' );
 }
 
 /**
@@ -704,8 +723,7 @@ function cbmarkets_rates_block( $attributes ) {
 			$atts[ $att ] = (string) $attributes[ $attribute ];
 		}
 	}
-	$align = isset( $attributes['align'] ) && in_array( $attributes['align'], array( 'left', 'center', 'right' ), true ) ? ' cbmarkets-align-' . $attributes['align'] : '';
-	return '<div class="wp-block-cbmarkets-converter' . esc_attr( $align ) . '">' . cbmarkets_rates_converter( $atts ) . '</div>';
+	return cbmarkets_rates_boxed( cbmarkets_rates_converter( $atts ), isset( $attributes['align'] ) ? $attributes['align'] : '', 'wp-block-cbmarkets-converter' );
 }
 
 /**
@@ -722,7 +740,8 @@ function cbmarkets_rates_for_shortcode() {
 }
 
 /**
- * A small line saying the figures are a sample, on a site that shows the sample.
+ * A few words after a figure in a sentence saying it is a sample, on a site that shows the sample.
+ * The full line is in the title.
  *
  * @param array $file A rate file.
  * @return string
@@ -731,7 +750,9 @@ function cbmarkets_rates_sample_mark( $file ) {
 	if ( 'sample' !== $file['state'] ) {
 		return '';
 	}
-	return ' <small class="cbmarkets-sample">' . esc_html( cbmarkets_rates_status( $file ) ) . '</small>';
+	/* translators: %s: a date */
+	$text = sprintf( __( '(sample of %s)', 'crystal-ball-markets-rates' ), cbmarkets_rates_when( $file['at'] ) );
+	return ' <small class="cbmarkets-sample" title="' . esc_attr( cbmarkets_rates_status( $file ) ) . '">' . esc_html( $text ) . '</small>';
 }
 
 /**
@@ -813,6 +834,7 @@ function cbmarkets_rates_shortcode_rates( $atts ) {
 			'currencies' => 'EUR,GBP,JPY,CNY,INR',
 			'decimals'   => '',
 			'theme'      => '',
+			'align'      => '',
 		),
 		$atts,
 		'cbmarkets_rates'
@@ -841,11 +863,12 @@ function cbmarkets_rates_shortcode_rates( $atts ) {
 	}
 	/* translators: %s: a currency code */
 	$heading = sprintf( __( 'Per 1 %s', 'crystal-ball-markets-rates' ), $base );
-	return '<div class="cbmarkets-card cbmarkets-theme-' . esc_attr( $theme ) . '">'
+	$card = '<div class="cbmarkets-card cbmarkets-theme-' . esc_attr( $theme ) . '">'
 		. '<table class="cbmarkets-table"><thead><tr><th scope="col">' . esc_html__( 'Currency', 'crystal-ball-markets-rates' ) . '</th><th scope="col">' . esc_html( $heading ) . '</th></tr></thead><tbody>' . $rows . '</tbody></table>'
 		. '<p class="cbmarkets-status' . ( 'live' === $file['state'] ? '' : ' cbmarkets-late' ) . '">' . esc_html( cbmarkets_rates_status( $file ) ) . '</p>'
 		. wp_kses_post( cbmarkets_rates_credit() )
 		. '</div>';
+	return cbmarkets_rates_boxed( $card, $atts['align'] );
 }
 
 /**

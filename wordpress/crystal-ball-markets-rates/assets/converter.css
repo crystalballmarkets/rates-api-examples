@@ -94,11 +94,18 @@
 .cbmarkets-converter [hidden] {
 	display: none !important;
 }
-.wp-block-cbmarkets-converter.cbmarkets-align-center .cbmarkets-converter {
+
+/*
+ * The box a card sits in. A theme's rules for whatever is directly in the content
+ * (a width, margins) land on the box, and the card inside keeps its own width.
+ */
+.cbmarkets-block.cbmarkets-align-center > .cbmarkets-converter,
+.cbmarkets-block.cbmarkets-align-center > .cbmarkets-card {
 	margin-left: auto;
 	margin-right: auto;
 }
-.wp-block-cbmarkets-converter.cbmarkets-align-right .cbmarkets-converter {
+.cbmarkets-block.cbmarkets-align-right > .cbmarkets-converter,
+.cbmarkets-block.cbmarkets-align-right > .cbmarkets-card {
 	margin-left: auto;
 }
 

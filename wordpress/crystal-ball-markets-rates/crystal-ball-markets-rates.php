@@ -4,7 +4,7 @@
  * Plugin URI:        https://crystalballmarkets.com/markets/rates-api
  * Description:       A currency converter and gold value calculator for your pages, with exchange rates, converted amounts and gold prices as shortcodes. Figures from the Crystal Ball Markets Rates API.
  * Version:           2.0.0
- * Requires at least: 6.0
+ * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            Crystal Ball Markets
  * Author URI:        https://crystalballmarkets.com

@@ -254,7 +254,7 @@ $checks['a draft and a private page name nothing to the service'] = function () 
 	$GLOBALS['cbm_test']['post']->post_status = 'draft';
 	$GLOBALS['cbm_test']['http']              = service();
 	boot();
-	has( shortcode( 'cbmarkets_rate' ), 'Sample rates of' );
+	has( shortcode( 'cbmarkets_rate' ), '>(sample of 19 Nov 2026)<' );
 	check( 0 === requests(), 'no request for a draft' );
 };
 
@@ -429,7 +429,9 @@ $checks['the small shortcodes: figures match the sums'] = function () {
 	has( shortcode( 'cbmarkets_gold', array( 'weight' => '10', 'unit' => 'gram', 'purity' => '22k', 'currency' => 'INR' ) ), '10 grams of 22K gold = ' . number_format( $worth, 2 ) . ' INR' );
 	has( shortcode( 'cbmarkets_gold', array( 'weight' => '1', 'unit' => 'tola' ) ), '1 tola of 24K gold = ' . number_format( 11.6638038 / CBMARKETS_RATES_GRAMS_PER_TROY_OUNCE * $spot, 2 ) . ' USD' );
 	check( '' === shortcode( 'cbmarkets_gold', array( 'unit' => 'stone' ) ), 'an unknown unit shows nothing' );
-	has( shortcode( 'cbmarkets_rate' ), 'Sample rates of 19 Nov 2026.', 'a sample figure says it is one' );
+	$sample = shortcode( 'cbmarkets_rate' );
+	has( $sample, '>(sample of 19 Nov 2026)</small>', 'a sample figure says it is one, in a few words' );
+	has( $sample, 'title="Sample rates of 19 Nov 2026. Live rates load on a public site."', 'and in full in its title' );
 };
 
 $checks['the converter: first figures, the choices of its attributes, and one tab alone'] = function () {
@@ -469,7 +471,15 @@ $checks['the converter: first figures, the choices of its attributes, and one ta
 	check( $a[1] !== $b[1], 'two converters on a page do not share ids' );
 
 	$block = cbmarkets_rates_block( array( 'show' => 'gold', 'goldCurrency' => 'INR', 'purity' => '22k', 'align' => 'center', 'theme' => 'auto', 'extra' => array( 'x' ) ) );
-	has( $block, '<div class="wp-block-cbmarkets-converter cbmarkets-align-center">' );
+	has( $block, '<div class="wp-block-cbmarkets-converter cbmarkets-block cbmarkets-align-center">' );
+	has( cbmarkets_rates_block( array() ), '<div class="wp-block-cbmarkets-converter cbmarkets-block">' );
+
+	// Each card sits in a box of the plugin's own, so a theme's rules for what is directly in the content do not reach the card.
+	has( shortcode( 'cbmarkets_converter' ), '<div class="cbmarkets-block">' );
+	has( shortcode( 'cbmarkets_converter', array( 'align' => 'Right' ) ), '<div class="cbmarkets-block cbmarkets-align-right">' );
+	has( shortcode( 'cbmarkets_rates' ), '<div class="cbmarkets-block"><div class="cbmarkets-card cbmarkets-theme-light">' );
+	has( shortcode( 'cbmarkets_rates', array( 'align' => 'center' ) ), '<div class="cbmarkets-block cbmarkets-align-center"><div class="cbmarkets-card' );
+	has( shortcode( 'cbmarkets_rates', array( 'align' => 'middle' ) ), '<div class="cbmarkets-block"><div class="cbmarkets-card' );
 	has( $block, 'cbmarkets-theme-auto' );
 	has( $block, '10 grams of 22K gold =' );
 };
@@ -478,10 +488,10 @@ $checks['attributes are never trusted: markup in them does not reach the page'] 
 	$GLOBALS['cbm_test']['home'] = 'http://localhost';
 	boot();
 	$evil = '"><script>alert(1)</script>';
-	$html = shortcode( 'cbmarkets_converter', array( 'amount' => $evil, 'from' => $evil, 'to' => $evil, 'weight' => $evil, 'unit' => $evil, 'purity' => $evil, 'gold_currency' => $evil, 'theme' => $evil, 'show' => $evil, 'tab' => $evil ) )
+	$html = shortcode( 'cbmarkets_converter', array( 'amount' => $evil, 'from' => $evil, 'to' => $evil, 'weight' => $evil, 'unit' => $evil, 'purity' => $evil, 'gold_currency' => $evil, 'theme' => $evil, 'show' => $evil, 'tab' => $evil, 'align' => $evil ) )
 		. shortcode( 'cbmarkets_rate', array( 'from' => $evil, 'to' => $evil, 'decimals' => $evil ) )
 		. shortcode( 'cbmarkets_convert', array( 'amount' => $evil, 'from' => 'USD', 'to' => 'EUR', 'decimals' => '99' ) )
-		. shortcode( 'cbmarkets_rates', array( 'base' => 'USD', 'currencies' => $evil . ',EUR', 'theme' => $evil ) )
+		. shortcode( 'cbmarkets_rates', array( 'base' => 'USD', 'currencies' => $evil . ',EUR', 'theme' => $evil, 'align' => $evil ) )
 		. shortcode( 'cbmarkets_gold', array( 'country' => $evil ) )
 		. shortcode( 'cbmarkets_gold', array( 'weight' => $evil, 'unit' => $evil, 'purity' => $evil, 'currency' => $evil ) )
 		. cbmarkets_rates_block( array( 'align' => $evil, 'from' => $evil, 'theme' => array( $evil ) ) );

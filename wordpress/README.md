@@ -43,7 +43,7 @@ node wordpress/tests/core.test.cjs   # the browser's sums
 node wordpress/tests/page.cjs        # the real converter in Chromium: figures, buttons, pins, colours, a hostile theme, a phone
 ```
 
-The first two need only PHP and Node. The third needs Playwright's Chromium. None of them is a WordPress site: before each release, install the zip on a clean WordPress with `WP_DEBUG` on (WordPress Playground will do) and go through the list in `tests/ON-A-SITE.md`.
+The first two need only PHP and Node. The third needs Playwright's Chromium. None of them is a WordPress site: before each release, install the zip on a clean WordPress with `WP_DEBUG` on and go through the list in `tests/ON-A-SITE.md`, by hand (WordPress Playground will do) or with `node wordpress/tests/on-a-site.cjs`, which does the ten steps in Chromium and runs Plugin Check.
 
 ## Pack it
 
