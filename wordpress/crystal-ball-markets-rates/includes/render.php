@@ -19,8 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function cbmarkets_rates_register() {
 	wp_register_style( 'cbmarkets-rates', CBMARKETS_RATES_URL . 'assets/converter.css', array(), CBMARKETS_RATES_VERSION );
-	wp_register_script( 'cbmarkets-rates-core', CBMARKETS_RATES_URL . 'assets/core.js', array(), CBMARKETS_RATES_VERSION, true );
-	wp_register_script( 'cbmarkets-rates-converter', CBMARKETS_RATES_URL . 'assets/converter.js', array( 'cbmarkets-rates-core' ), CBMARKETS_RATES_VERSION, true );
+	// In the footer, and never in the way of the page being drawn.
+	$script_args = array(
+		'in_footer' => true,
+		'strategy'  => 'defer',
+	);
+	wp_register_script( 'cbmarkets-rates-core', CBMARKETS_RATES_URL . 'assets/core.js', array(), CBMARKETS_RATES_VERSION, $script_args );
+	wp_register_script( 'cbmarkets-rates-converter', CBMARKETS_RATES_URL . 'assets/converter.js', array( 'cbmarkets-rates-core' ), CBMARKETS_RATES_VERSION, $script_args );
 
 	register_block_type(
 		CBMARKETS_RATES_DIR . 'assets/block',
