@@ -91,7 +91,7 @@ function source_files( $pattern = '/\.(php|js|css|json|txt)$/' ) {
 
 // ---- the checks ----
 
-$checks['names: every name carries the long prefix, as the WordPress.org review asks'] = function () {
+$checks['names: every name carries the long prefix, as the WordPress.org guidelines ask'] = function () {
 	$php = source_files( '/\.php$/' );
 	foreach ( $php as $name => $code ) {
 		preg_match_all( '/^\s*function\s+([A-Za-z0-9_]+)\s*\(/m', $code, $m );

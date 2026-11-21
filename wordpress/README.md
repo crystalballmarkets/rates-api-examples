@@ -27,7 +27,7 @@ The block is “Currency and Gold Converter”. What the plugin does, what it se
 | `assets/block/` | The block, written without a build step. |
 | `data/snapshot.json` | Rates packed with the version: shown, dated and marked as a sample, on local and test sites, in the editor and in previews. |
 
-Every function, constant, option, transient, hook, shortcode, script handle and style class carries the prefix `cbmarkets` (`cbmarkets_rates_` in PHP), as the directory's review asks.
+Every function, constant, option, transient, hook, shortcode, script handle and style class carries the prefix `cbmarkets` (`cbmarkets_rates_` in PHP), as the directory’s guidelines ask.
 
 Three choices worth knowing:
 
