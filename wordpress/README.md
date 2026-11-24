@@ -1,6 +1,6 @@
 # Crystal Ball Markets Rates: WordPress plugin
 
-The source of our WordPress plugin, version 2.0.0: a currency converter and gold value calculator for any page, as a block and as shortcodes, with four small shortcodes for figures inside a sentence. It is built on [`rates.json`](https://crystalballmarkets.com/markets/api/v1/rates.json) and [`gold.json`](https://crystalballmarkets.com/markets/api/v1/gold.json) of the [Rates API](https://crystalballmarkets.com/markets/rates-api).
+The source of our WordPress plugin, version 2.0.0, published in the WordPress.org directory as [Crystal Ball Markets Rates](https://wordpress.org/plugins/crystal-ball-markets-rates/) (install it from Plugins, Add New, in any WordPress site): a currency converter and gold value calculator for any page, as a block and as shortcodes, with four small shortcodes for figures inside a sentence. It is built on [`rates.json`](https://crystalballmarkets.com/markets/api/v1/rates.json) and [`gold.json`](https://crystalballmarkets.com/markets/api/v1/gold.json) of the [Rates API](https://crystalballmarkets.com/markets/rates-api).
 
 | Shortcode | Shows |
 | --- | --- |
