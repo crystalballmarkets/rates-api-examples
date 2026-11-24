@@ -53,6 +53,31 @@ node wordpress/tests/page.cjs --shots   # the directory's four screenshots
 node wordpress/tools/artwork.cjs        # its icon and banner
 ```
 
-`.wordpress-org/` holds the pictures of the plugin's page in the directory (icon, banner, screenshots). They are not part of the zip: once the plugin is approved they go in the `assets` folder of its SVN repository.
+`.wordpress-org/` holds the pictures of the plugin's page in the directory (icon, banner, screenshots). They are not part of the zip: they go in the `assets` folder of its SVN repository.
+
+## Publish it on WordPress.org
+
+The directory approved the plugin on 24 Nov 2026. Its page is https://wordpress.org/plugins/crystal-ball-markets-rates/ and its code lives in SVN at https://plugins.svn.wordpress.org/crystal-ball-markets-rates (user `crystalballmarkets`, case-sensitive). Only someone with that account can commit: SVN takes its own password, made under *Account & Security* on the WordPress.org profile, never the email address or the site password.
+
+```sh
+sh wordpress/tools/svn.sh            # runs the checks, lays out trunk, tags/<version> and assets in wordpress/dist/svn,
+                                     # and zips them as wordpress/dist/crystal-ball-markets-rates-svn.zip
+```
+
+The first release, from the command line:
+
+```sh
+svn checkout https://plugins.svn.wordpress.org/crystal-ball-markets-rates cbm-svn
+cd cbm-svn
+unzip -o /path/to/crystal-ball-markets-rates-svn.zip      # fills trunk, tags/2.0.0 and assets
+svn add --force trunk tags assets
+svn propset svn:mime-type image/png assets/*.png         # so the pictures show rather than download
+svn propset svn:mime-type image/svg+xml assets/icon.svg
+svn commit -m "Version 2.0.0" --username crystalballmarkets
+```
+
+On Windows, TortoiseSVN does the same: *SVN Checkout* of the URL into an empty folder, unzip the package into it, *TortoiseSVN, Add* on everything new, then *SVN Commit*.
+
+The page shows the version that `Stable tag` in `readme.txt` names, so a release always adds `tags/<version>` with the same files as `trunk`; `svn.sh` refuses a release whose `Stable tag` and `Version` differ. A later release: raise both, run `svn.sh`, `svn update` the checkout, unzip over it, `svn add --force trunk tags assets`, commit. The page changes within minutes; the directory's search can take up to 72 hours.
 
 GPLv2 or later, as WordPress requires.
