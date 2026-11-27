@@ -5,7 +5,7 @@ The source of our Chrome extension, version 2.0.0. A pop-up in the browser's too
 * **Currency**: type an amount and choose two currencies. The result appears as you type, with the rate in both directions, the source of each rate and its time. Swap the pair, copy the result, pin up to four pairs.
 * **Gold**: a weight in grams, troy ounces, tolas, pavans, baht, taels or kilograms, a purity from 24K to 14K and a currency. It shows the value of the gold in that weight at the international price, and the price of one gram at 24K, 22K and 18K.
 
-What it does, privacy and support: [crystalballmarkets.com/chrome-extension](https://crystalballmarkets.com/chrome-extension).
+Install it from the [Chrome Web Store](https://chromewebstore.google.com/detail/currency-and-gold-convert/golkincnoejbeghbpibdfgmkcclpiapg). What it does, privacy and support: [crystalballmarkets.com/chrome-extension](https://crystalballmarkets.com/chrome-extension).
 
 ## How it is built
 
